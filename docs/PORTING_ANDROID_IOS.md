@@ -47,13 +47,59 @@ godot --headless --export-debug "Android Debug" builds/trash-panda-tycoon-debug.
 - Connect via USB or use ADB wireless debugging
 - Run: `adb install builds/trash-panda-tycoon-debug.apk`
 
-### Android-Specific Notes for This Project
+## Android-Specific Notes for This Project
+
+### Export Readiness Report (Batch 007 — July 2026)
+
+**Status: BLOCKED — Android SDK not installed**
+
+| Component | Required | Found | Action |
+|-----------|----------|-------|--------|
+| Java/JDK 17+ | Yes | ✅ `/mnt/c/Program Files/Eclipse Adoptium/jdk-17.0.19.10-hotspot/` | — |
+| Android Studio / SDK | Yes | ❌ Not installed | Install from developer.android.com/studio |
+| Godot Android export templates | Yes | ❌ Not installed | Install via Godot → Editor Settings → Export → Android |
+| ANDROID_HOME env var | Yes | ❌ Not set | Set to SDK path after install |
+| ADB | Yes | ❌ Not installed | Comes with Android SDK |
+| keytool | Yes | ❌ Not found (JDK not in PATH) | Add JDK bin/ to PATH |
+| Gradle (bundled with Godot) | Bundled | — | Handled by Godot export process |
+
+**To enable Android export:**
+
+1. Install Android Studio from https://developer.android.com/studio
+2. Open SDK Manager → install Android SDK 34–36 + NDK
+3. Note SDK path (default: `C:\Users\<you>\AppData\Local\Android\Sdk`)
+4. Set env vars (or configure in Godot Editor):
+   ```bash
+   export ANDROID_HOME="/mnt/c/Users/<you>/AppData/Local/Android/Sdk"
+   export PATH="$ANDROID_HOME/platform-tools:$PATH"
+   ```
+5. In Godot: Editor → Editor Settings → Export → Android → point to SDK path
+6. Install Android export templates when prompted
+7. Export APK:
+   ```bash
+   godot --headless --export-debug "Android Debug" exports/trash-panda-tycoon-debug.apk
+   ```
+
+### First-Device Playtest Checklist
 
 - **Touch input**: `TrashItem.gd` handles both `InputEventMouse*` and `InputEventScreenTouch/Drag`
 - **Safe areas**: Stretch mode is `canvas_items` with `expand` aspect — works on most screen ratios
 - **Orientation**: Portrait locked (`window/handheld/orientation=1` in project.godot)
 - **Debug overlay**: Tap the "DBG" button in the HUD to show FPS, item count, spawn rate, and input mode
 - **No real plugins**: No Google Play Services, no ad SDKs, no IAP SDKs are included
+
+### First-Device Playtest Checklist
+
+- [ ] Touch drag works on real device
+- [ ] Items snap back correctly on missed drop
+- [ ] Bins are large enough for finger taps
+- [ ] No UI elements clipped by notch/punch-hole
+- [ ] Debug overlay toggles via DBG button
+- [ ] FPS stays above 30 during gameplay
+- [ ] Save/load works after app restart
+- [ ] Daily reward resets correctly (local calendar)
+- [ ] Mission progress persists
+- [ ] Settings (sound toggle) saved and restored
 
 ### Current Android Limitations
 - Touch input is structurally ready but untested on real hardware
