@@ -37,6 +37,8 @@ func _ready() -> void:
 	_setup_timers()
 	_connect_signals()
 	_settings_screen.settings_closed.connect(_on_settings_closed)
+	# Auto-start first round when the game scene loads
+	start_round()
 
 
 func _load_json(path: String) -> Array:
