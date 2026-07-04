@@ -16,10 +16,10 @@ func _update_daily_button() -> void:
 	var btn: Button = %DailyRewardButton
 	if not btn: return
 	if GameState and GameState.is_daily_reward_available():
-		btn.text = "\U0001F4B0 Daily Reward (%d)" % Tuning.DAILY_REWARD_AMOUNT
+		btn.text = "\U0001F4B0 Daily Reward (+%d coins)" % Tuning.DAILY_REWARD_AMOUNT
 		btn.disabled = false
 	else:
-		btn.text = "\U00002705 Daily Claimed"
+		btn.text = "\U00002705 Today's Reward Claimed"
 		btn.disabled = true
 
 

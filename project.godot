@@ -33,6 +33,7 @@ ui_cancel={
 }
 
 [autoload]
+LayoutHelper="*res://scripts/ui/layout_helper.gd"
 Tuning="*res://scripts/tuning.gd"
 GameState="*res://scripts/game_state.gd"
 SaveSystem="*res://scripts/save_system.gd"

@@ -77,7 +77,9 @@ func update_display(coins: int, time_left: int, mess: int, max_mess: int,
 	# Debug
 	if _debug_visible and _debug_label:
 		var fps: float = Engine.get_frames_per_second()
-		_debug_label.text = "FPS:%d Items:%d Spawn:%.2fs" % [fps, active_items, spawn_interval]
+		var vp: String = LayoutHelper.viewport_size_string()
+		var margins: String = LayoutHelper.safe_margin_string()
+		_debug_label.text = "FPS:%d Items:%d Spawn:%.2fs %s %s" % [fps, active_items, spawn_interval, vp, margins]
 
 
 func _on_pause_pressed() -> void: pause_pressed.emit()

@@ -26,13 +26,16 @@ func display_results(results: Dictionary) -> void:
 	# Missions
 	var missions: Array = results.get("missions", [])
 	var mission_text: String = ""
+	var mission_header: String = ""
 	var any_active: bool = false
 	for m in missions:
 		var status_icon: String = "\U00002705" if m.completed else "\U000025AB"
-		mission_text += "%s %s: %d/%d" % [status_icon, m.name, m.progress, m.req] + "\n"
+		var claim_tag: String = "  [CLAIM!]" if m.completed and not m.claimed else ""
+		mission_text += "%s %s: %d/%d%s" % [status_icon, m.name, m.progress, m.req, claim_tag] + "\n"
 		if m.completed and not m.claimed:
 			any_active = true
-	%MissionLabel.text = mission_text.strip_edges()
+	mission_header = "--- Missions ---\n" if not mission_text.is_empty() else ""
+	%MissionLabel.text = mission_header + mission_text.strip_edges()
 
 	# Show claim button if any missions completed but unclaimed
 	if %MissionClaimButton:

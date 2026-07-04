@@ -116,3 +116,22 @@ Use this checklist to validate the MVP after each build.
 - Test on windowed mode at 720x1280
 - For Android: export APK via `godot --headless --export-debug "Android Debug" build.apk`
 - Enable debug overlay by tapping "DBG" button in HUD (top-right)
+
+## Mobile Layout Checks
+- [ ] Top HUD elements not clipped by status bar area (>40px from top edge)
+- [ ] Bottom buttons not clipped by nav bar area (>40px from bottom edge)
+- [ ] Pause button (top-right) reachable with thumb
+- [ ] Debug button (top-right, below pause) reachable
+- [ ] Results screen buttons large enough to tap (~48px min)
+- [ ] Upgrade rows readable and scrollable
+- [ ] Mission text readable on 5" phone screen
+- [ ] Daily reward button clearly claims/unclaimed
+- [ ] Settings toggles tappable
+- [ ] Touch drag starts correctly within item bounds
+- [ ] Items snap back on missed drop
+- [ ] Landscape does not reorient (locked portrait)
+- [ ] Debug overlay shows viewport size + margin values
+- [ ] LayoutHelper.SAFE_TOP/SAFE_BOTTOM/SAFE_SIDE prevent edge clipping
+- [ ] Minimum touch target (44px) respected on all buttons
+- [ ] Color is not the only indicator — text labels accompany all icons
+- [ ] Font sizes readable at arm's length (14px min, 16px+ body)
