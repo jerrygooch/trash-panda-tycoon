@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg71u26sjjqdh"]
+
+[ext_resource type="Script" path="res://scripts/game/conveyor.gd" id="1"]
+
+[node name="Conveyor" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size = Vector2i(720, 580)
+script = ExtResource("1")
+
+[node name="BeltRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 20
+offset_right = 700
+offset_bottom = 580
+color = Color(0.18, 0.18, 0.22, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[node name="StripeRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 20
+offset_top = 280
+offset_right = 700
+offset_bottom = 300
+color = Color(0.25, 0.25, 0.3, 0.5)
+
+[node name="TopLight" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 20
+offset_right = 700
+offset_bottom = 4
+color = Color(1, 0.84, 0, 0.15)
+
+[node name="BottomLight" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 20
+offset_top = 576
+offset_right = 700
+offset_bottom = 580
+color = Color(1, 0.3, 0.3, 0.2)

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "bin_food",
+    "name": "Food",
+    "category": "food",
+    "color": "#66BB6A",
+    "icon_hint": "food bin",
+    "position_index": 0
+  },
+  {
+    "id": "bin_metal",
+    "name": "Metal",
+    "category": "metal",
+    "color": "#78909C",
+    "icon_hint": "metal bin",
+    "position_index": 1
+  },
+  {
+    "id": "bin_plastic",
+    "name": "Plastic",
+    "category": "plastic",
+    "color": "#42A5F5",
+    "icon_hint": "plastic bin",
+    "position_index": 2
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "trash_value",
+    "name": "Trash Value",
+    "description": "Trash items are worth more coins",
+    "icon_hint": "coin upgrade",
+    "max_level": 10,
+    "base_cost": 50,
+    "cost_multiplier": 1.8,
+    "effect_per_level": 1,
+    "effect_unit": "coin"
+  },
+  {
+    "id": "spawn_rate",
+    "name": "Spawn Rate",
+    "description": "Items appear faster on the conveyor",
+    "icon_hint": "speed upgrade",
+    "max_level": 10,
+    "base_cost": 75,
+    "cost_multiplier": 1.8,
+    "effect_per_level": -0.15,
+    "effect_unit": "seconds"
+  },
+  {
+    "id": "mess_capacity",
+    "name": "Mess Capacity",
+    "description": "More mistakes before the mess takes over",
+    "icon_hint": "shield upgrade",
+    "max_level": 10,
+    "base_cost": 100,
+    "cost_multiplier": 1.8,
+    "effect_per_level": 2,
+    "effect_unit": "points"
+  },
+  {
+    "id": "offline_earnings",
+    "name": "Offline Earnings",
+    "description": "Earn coins while you're away",
+    "icon_hint": "idle upgrade",
+    "max_level": 10,
+    "base_cost": 200,
+    "cost_multiplier": 2.0,
+    "effect_per_level": 0.5,
+    "effect_unit": "coins/min"
+  }
+]

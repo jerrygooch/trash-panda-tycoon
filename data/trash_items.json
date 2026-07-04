@@ -1,0 +1,50 @@
+[
+  {
+    "id": "banana_peel",
+    "name": "Banana Peel",
+    "category": "food",
+    "base_value": 1,
+    "color": "#F5D442",
+    "icon_hint": "banana peel placeholder"
+  },
+  {
+    "id": "pizza_slice",
+    "name": "Pizza Slice",
+    "category": "food",
+    "base_value": 2,
+    "color": "#E8923A",
+    "icon_hint": "pizza slice placeholder"
+  },
+  {
+    "id": "soda_can",
+    "name": "Soda Can",
+    "category": "metal",
+    "base_value": 2,
+    "color": "#E84040",
+    "icon_hint": "soda can placeholder"
+  },
+  {
+    "id": "tin_can",
+    "name": "Tin Can",
+    "category": "metal",
+    "base_value": 1,
+    "color": "#7A7A7A",
+    "icon_hint": "tin can placeholder"
+  },
+  {
+    "id": "plastic_bottle",
+    "name": "Plastic Bottle",
+    "category": "plastic",
+    "base_value": 2,
+    "color": "#4FC3F7",
+    "icon_hint": "plastic bottle placeholder"
+  },
+  {
+    "id": "plastic_bag",
+    "name": "Plastic Bag",
+    "category": "plastic",
+    "base_value": 1,
+    "color": "#B0BEC5",
+    "icon_hint": "plastic bag placeholder"
+  }
+]

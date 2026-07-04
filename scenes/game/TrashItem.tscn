@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3uhs6bmlfckq"]
+
+[ext_resource type="Script" path="res://scripts/game/trash_item.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.3)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="TrashItem" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size = Vector2i(60, 60)
+mouse_filter = 2
+script = ExtResource("1")

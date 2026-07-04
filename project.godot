@@ -1,0 +1,47 @@
+; Trash Panda Tycoon
+; A raccoon trash sorting idle game
+; Godot 4.7 — GDScript only, no C# or Mono
+
+[application]
+config/name="Trash Panda Tycoon"
+config/description="Sort trash, earn coins, build your raccoon empire!"
+config/version="0.1.0"
+run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.7")
+
+[display]
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/size/mode=0
+window/size/always_on_top=false
+window/size/resizable=false
+window/size/borderless=false
+window/dpi/allow_hidpi=true
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[input]
+ui_accept={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+ui_cancel={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194305,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+
+[autoload]
+GameState="*res://scripts/game_state.gd"
+SaveSystem="*res://scripts/save_system.gd"
+PlatformService="*res://scripts/platform/platform_service.gd"
+
+[file_logging]
+enable_console=true
+
+[dotnet]
+enabled=false
+
+[editor_plugins]
+enabled=PackedStringArray()

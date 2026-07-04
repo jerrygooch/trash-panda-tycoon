@@ -1,0 +1,40 @@
+# Godot
+.godot/
+import/
+*.import
+*.translation
+*.uid
+
+# Generated caches
+.gen/
+export/
+exports/*
+!exports/.gitkeep
+
+# Credentials
+.env
+auth.json
+credentials.json
+*.secret
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Logs
+*.log
+logs/
+user://
+
+# System
+__pycache__/
+*.pyc
+*.pyo
