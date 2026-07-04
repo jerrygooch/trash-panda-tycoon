@@ -55,6 +55,32 @@ Use this checklist to validate the MVP after each build.
 - [ ] Console shows [FakeAds] log messages
 - [ ] Console shows [FakeIAP] log messages if applicable
 
+## Batch 002 Specific
+- [ ] Combo counter increases on correct streak
+- [ ] Combo resets on wrong/miss
+- [ ] HUD shows combo when 2x+
+- [ ] Combo milestone bonus awarded at x5, x10, etc.
+- [ ] Combo shown on results screen
+- [ ] Watch Ad x2 can only be claimed once per round
+- [ ] Watch Ad x2 button says "Reward Claimed" after use
+- [ ] Watch Ad x2 resets for next round
+- [ ] Pause button visible during gameplay
+- [ ] Pause menu shows Resume, Restart Round, Main Menu
+- [ ] Resume unpauses timers correctly
+- [ ] Restart Round starts fresh without corrupting save
+- [ ] Main Menu returns to title screen
+- [ ] Offline earnings do not crash save/load
+- [ ] Offline earnings popup shows on next round after idle
+- [ ] Conveyor belt animates (scrolling stripes)
+- [ ] Green flash on correct bin hit
+- [ ] Red flash + screen shake on wrong bin
+- [ ] Item pop/scale effect before removal
+- [ ] Sound plays on correct sort
+- [ ] Sound plays on wrong sort
+- [ ] Drag feels forgiving (expanded bin hit zones)
+- [ ] No C# files created
+- [ ] No Mono dependencies
+
 ## Structural
 - [ ] No C# files in the project
 - [ ] No Mono dependencies

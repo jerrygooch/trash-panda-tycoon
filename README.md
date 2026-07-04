@@ -62,6 +62,19 @@ No build/export is required for development testing.
 - Any iOS-specific ad SDK integration
 - Notarization / TestFlight setup
 
+## What's New in Batch 002
+
+### Gameplay Feel Improvements
+- **Combo/Streak mechanic** — consecutive correct sorts build a combo counter. Every 5-combo milestone gives a bonus. Combo resets on wrong/miss. HUD shows "x2+" when active.
+- **Sorting feedback juice** — floating coin text, item pop/scale on removal, green bin flash on correct, red bin flash + screen shake on wrong, mess meter pulse.
+- **Conveyor animation** — scrolling stripes with lane markers create the illusion of a moving belt.
+- **Spawn rate tuning** — base interval 1.8s (was 2.0s), minimum 0.5s (was 0.4s), gentler curve.
+- **Rewarded ad one-claim** — Watch Ad x2 can only be used once per round. Button changes to "Reward Claimed" permanently.
+- **Pause/restart** — pause button in the HUD opens a menu with Resume, Restart Round, and Main Menu.
+- **Offline earnings** — saves timestamp, calculates coins based on Offline Earnings upgrade level (up to 2h cap).
+- **Sound placeholders** — procedural sine wave beeps for correct/wrong/coin events.
+- **Drag reliability** — bin drop zones expanded by 15px on each side for forgiveness.
+
 ## Tech Stack
 
 - **Engine:** Godot 4.7 (standard, no Mono/C#)

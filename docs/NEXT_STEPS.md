@@ -49,7 +49,7 @@
 - More bins
 - Bin upgrades (auto-sort, faster processing)
 - Daily rewards
-- Offline earnings (real)
+- Offline earnings (improved — boost multipliers, compound interest)
 - Leaderboards (Google Play / Game Center)
 - Achievements
 - Raccoon customisation

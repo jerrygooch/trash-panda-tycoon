@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnkqq1kxogtxn"]
+[gd_scene load_steps=9 format=3 uid="uid://dnkqq1kxogtxn"]
 
 [ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/ui/Hud.tscn" id="2"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" path="res://scenes/game/Bin.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/game/Conveyor.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/ui/UpgradeScreen.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PauseMenu.tscn" id="7"]
+[ext_resource type="Script" path="res://scripts/game/sound_manager.gd" id="8"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1")
@@ -90,3 +92,16 @@ offset_left = 0
 offset_top = 0
 offset_right = 720
 offset_bottom = 1280
+
+[node name="PauseMenu" parent="." instance=ExtResource("7")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 720
+offset_bottom = 1280
+
+[node name="SoundManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("8")

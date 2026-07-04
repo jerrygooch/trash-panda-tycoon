@@ -72,5 +72,5 @@ Each bin accepts its category. Wrong bin = mess increase.
 - Daily challenges
 - Raccoon mascot customisation
 - Multi-row conveyor
-- Combo bonuses for consecutive correct sorts
-- Offline earnings (real implementation)
+- Combo bonuses for consecutive correct sorts ✅ (implemented)
+- Offline earnings (basic implementation — cap, claim message, save/load timestamp)

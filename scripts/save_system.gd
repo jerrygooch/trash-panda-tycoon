@@ -1,19 +1,23 @@
 extends Node
 
-# SaveSystem — handles local JSON save/load
+# SaveSystem — handles local JSON save/load + offline earnings calculation
 # Data stored in user:// saves (resolved by Godot to OS-specific path)
 
 const SAVE_FILE: String = "user://trash_panda_save.json"
+const OFFLINE_MAX_MINUTES: float = 120.0  # cap offline earnings to 2 hours
 
 
 func save_game() -> void:
+	GameState.last_save_timestamp = Time.get_unix_time_from_system()
+	
 	var data: Dictionary = {
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"total_coins": GameState.total_coins,
 		"best_round_score": GameState.best_round_score,
 		"round_number": GameState.round_number,
 		"upgrade_levels": GameState.upgrade_levels.duplicate(),
 		"remove_ads_owned": GameState.remove_ads_owned,
+		"last_save_timestamp": GameState.last_save_timestamp,
 		"settings": {
 			"music_volume": 1.0,
 			"sfx_volume": 1.0
@@ -56,12 +60,16 @@ func load_game() -> bool:
 	GameState.best_round_score = data.get("best_round_score", 0)
 	GameState.round_number = data.get("round_number", 0)
 	GameState.remove_ads_owned = data.get("remove_ads_owned", false)
+	GameState.last_save_timestamp = data.get("last_save_timestamp", 0)
 	
 	var upgrades: Dictionary = data.get("upgrade_levels", {})
 	for key in upgrades:
 		GameState.upgrade_levels[key] = upgrades[key]
 	
 	_recache_upgrade_effects()
+	
+	# Calculate offline earnings
+	_calculate_offline_earnings()
 	
 	print("[SaveSystem] Game loaded successfully")
 	return true
@@ -77,12 +85,46 @@ func reset_save() -> void:
 	GameState.round_correct = 0
 	GameState.round_wrong = 0
 	GameState.round_missed = 0
+	GameState.combo = 0
+	GameState.max_combo = 0
+	GameState.round_ad_claimed = false
+	GameState.offline_earnings_pending = 0
+	GameState.last_save_timestamp = 0
 	GameState.upgrade_levels.clear()
 	GameState.remove_ads_owned = false
 	GameState.trash_value_bonus = 0
 	GameState.spawn_rate_bonus = 0.0
 	GameState.mess_capacity_bonus = 0
 	print("[SaveSystem] Save data reset")
+
+
+func _calculate_offline_earnings() -> void:
+	var rate: float = GameState.get_offline_earnings_rate()
+	if rate <= 0.0:
+		GameState.offline_earnings_pending = 0
+		return
+	
+	if GameState.last_save_timestamp <= 0:
+		GameState.offline_earnings_pending = 0
+		return
+	
+	var now: int = Time.get_unix_time_from_system()
+	var elapsed_minutes: float = (now - GameState.last_save_timestamp) / 60.0
+	elapsed_minutes = minf(elapsed_minutes, OFFLINE_MAX_MINUTES)
+	
+	var earned: int = int(elapsed_minutes * rate)
+	if earned > 0:
+		GameState.offline_earnings_pending = earned
+		GameState.total_coins += earned
+		print("[SaveSystem] Offline earnings: ", earned, " coins (", elapsed_minutes, " min at ", rate, "/min)")
+	else:
+		GameState.offline_earnings_pending = 0
+
+
+func claim_offline_earnings_display() -> int:
+	var val: int = GameState.offline_earnings_pending
+	GameState.offline_earnings_pending = 0
+	return val
 
 
 func _recache_upgrade_effects() -> void:
@@ -99,6 +141,7 @@ func _recache_upgrade_effects() -> void:
 				GameState.spawn_rate_bonus = effect
 			"mess_capacity":
 				GameState.mess_capacity_bonus = int(effect)
+	# offline_earnings effect is recalculated via get_offline_earnings_rate()
 
 
 func _load_upgrades_data() -> Array:

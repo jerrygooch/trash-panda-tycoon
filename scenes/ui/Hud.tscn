@@ -9,6 +9,13 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.2, 0.2, 0.28, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="Hud" type="MarginContainer"]
 layout_mode = 3
 anchors_preset = 0
@@ -27,11 +34,11 @@ color = Color(0.08, 0.08, 0.12, 0.95)
 [node name="Grid" type="GridContainer" parent="."]
 layout_mode = 0
 offset_left = 10
-offset_top = 10
-offset_right = 710
-offset_bottom = 130
+offset_top = 6
+offset_right = 660
+offset_bottom = 120
 columns = 2
-theme_override_constants/v_separation = 4
+theme_override_constants/v_separation = 2
 theme_override_constants/h_separation = 12
 
 [node name="CoinsLabel" type="Label" parent="Grid"]
@@ -39,16 +46,16 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "\U0001FA99 0"
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 
 [node name="RoundLabel" type="Label" parent="Grid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Round 0"
+text = "R0"
 horizontal_alignment = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(1, 1, 1, 0.8)
 
 [node name="MessBar" type="ProgressBar" parent="Grid"]
@@ -56,7 +63,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_minimum_size = Vector2i(0, 24)
+custom_minimum_size = Vector2i(0, 20)
 show_percentage = false
 theme_override_styles/background = SubResource("StyleBoxFlat_ttq6p")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ttq6p")
@@ -65,18 +72,42 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_ttq6p")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "\U000023F1 0:30"
+text = "\U000023F1 30"
 horizontal_alignment = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(1, 1, 1, 0.8)
 
 [node name="MessLabel" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 10
-offset_top = 80
+offset_top = 70
 offset_right = 360
-offset_bottom = 105
+offset_bottom = 90
 text = "Mess: 0 / 5"
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+
+[node name="ComboLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10
+offset_top = 115
+offset_right = 310
+offset_bottom = 155
+text = "\U0001F525 x0"
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 0.5, 0, 1)
+
+[node name="PauseButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 660
+offset_top = 6
+offset_right = 714
+offset_bottom = 50
+text = "\U000023F8"
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn")
