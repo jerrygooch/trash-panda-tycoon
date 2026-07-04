@@ -27,6 +27,14 @@ offset_bottom = 360
 color = Color(1, 1, 1, 0.15)
 mouse_filter = 2
 
+[node name="BottomBar" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 340
+offset_right = 220
+offset_bottom = 360
+color = Color(0, 0, 0, 0.2)
+mouse_filter = 2
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 10
@@ -35,5 +43,5 @@ offset_right = 210
 offset_bottom = 60
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(1, 1, 1, 1)
