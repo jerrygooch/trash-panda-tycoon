@@ -30,120 +30,146 @@ grow_vertical = 1
 color = Color(0, 0, 0, 0.6)
 mouse_filter = 1
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Scroll" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_left = 40
-offset_top = 180
-offset_right = 680
-offset_bottom = 1000
-theme_override_styles/panel = SubResource("StyleBoxFlat_86a0p")
+offset_left = 30
+offset_top = 100
+offset_right = 690
+offset_bottom = 1180
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 0
-offset_left = 24
-offset_top = 16
-offset_right = 616
-offset_bottom = 776
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_constants/separation = 8
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
 
-[node name="RoundResultsLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="RoundResultsLabel" type="Label" parent="Scroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Round Complete!"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 
-[node name="CoinsEarnedLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="CoinsEarnedLabel" type="Label" parent="Scroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "\U0001FA99 0"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 42
+theme_override_font_sizes/font_size = 38
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 
-[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="CorrectLabel" type="Label" parent="Panel/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Correct: 0"
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.4, 0.73, 0.42, 1)
-
-[node name="WrongLabel" type="Label" parent="Panel/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Wrong: 0"
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.91, 0.3, 0.24, 1)
-
-[node name="MissedLabel" type="Label" parent="Panel/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Missed: 0"
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
-
-[node name="ComboLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="EmpireLabel" type="Label" parent="Scroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = ""
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.5, 0.8, 0.5, 1)
+
+[node name="HSep" type="HSeparator" parent="Scroll/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CorrectLabel" type="Label" parent="Scroll/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Correct: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.4, 0.73, 0.42, 1)
+
+[node name="WrongLabel" type="Label" parent="Scroll/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Wrong: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.91, 0.3, 0.24, 1)
+
+[node name="MissedLabel" type="Label" parent="Scroll/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Missed: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+
+[node name="ComboLabel" type="Label" parent="Scroll/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(1, 0.5, 0, 1)
 
-[node name="TotalCoinsLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="TotalCoinsLabel" type="Label" parent="Scroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Total: \U0001FA99 0"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 
-[node name="HSeparator2" type="HSeparator" parent="Panel/VBoxContainer"]
+[node name="HSep2" type="HSeparator" parent="Scroll/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="NextRoundButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="MissionLabel" type="Label" parent="Scroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-custom_minimum_size = Vector2i(220, 50)
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.7, 0.9, 1)
+autowrap_mode = 2
+
+[node name="MissionClaimButton" type="Button" parent="Scroll/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+visible = false
+custom_minimum_size = Vector2i(200, 40)
+text = "\U0001F3C6 Claim Rewards"
+theme_override_font_sizes/font_size = 16
+
+[node name="HSep3" type="HSeparator" parent="Scroll/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NextRoundButton" type="Button" parent="Scroll/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2i(220, 48)
 text = "Next Round"
 theme_override_font_sizes/font_size = 20
 
-[node name="UpgradeButton" type="Button" parent="Panel/VBoxContainer"]
-unique_name_in_owner = true
+[node name="UpgradeButton" type="Button" parent="Scroll/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
-custom_minimum_size = Vector2i(220, 50)
+custom_minimum_size = Vector2i(220, 48)
 text = "Upgrade"
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 
-[node name="WatchAdButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="WatchAdButton" type="Button" parent="Scroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-custom_minimum_size = Vector2i(220, 50)
+custom_minimum_size = Vector2i(220, 48)
 text = "Watch Ad x2"
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 
-[connection signal="pressed" from="Panel/VBoxContainer/NextRoundButton" to="." method="_on_next_round_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/WatchAdButton" to="." method="_on_watch_ad_pressed"]
+[connection signal="pressed" from="Scroll/VBox/NextRoundButton" to="." method="_on_next_round_pressed"]
+[connection signal="pressed" from="Scroll/VBox/MissionClaimButton" to="." method="_on_claim_missions_pressed"]
+[connection signal="pressed" from="Scroll/VBox/UpgradeButton" to="." method="_on_upgrade_pressed"]
+[connection signal="pressed" from="Scroll/VBox/WatchAdButton" to="." method="_on_watch_ad_pressed"]

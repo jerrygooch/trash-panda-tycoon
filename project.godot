@@ -1,5 +1,4 @@
 ; Trash Panda Tycoon
-; A raccoon trash sorting idle game
 ; Godot 4.7 — GDScript only, no C# or Mono
 
 [application]
@@ -34,6 +33,7 @@ ui_cancel={
 }
 
 [autoload]
+Tuning="*res://scripts/tuning.gd"
 GameState="*res://scripts/game_state.gd"
 SaveSystem="*res://scripts/save_system.gd"
 PlatformService="*res://scripts/platform/platform_service.gd"

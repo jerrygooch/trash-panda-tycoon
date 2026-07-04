@@ -58,9 +58,9 @@ theme_override_font_sizes/font_size = 72
 [node name="ButtonContainer" type="CenterContainer" parent="."]
 layout_mode = 0
 offset_left = 60
-offset_top = 500
+offset_top = 460
 offset_right = 660
-offset_bottom = 900
+offset_bottom = 950
 
 [node name="VBox" type="VBoxContainer" parent="ButtonContainer"]
 layout_mode = 1
@@ -69,7 +69,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 1
 grow_vertical = 1
-theme_override_constants/separation = 20
+theme_override_constants/separation = 14
+
+[node name="DailyRewardButton" type="Button" parent="ButtonContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_minimum_size = Vector2i(300, 50)
+text = "Daily Reward"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 
 [node name="NewGameButton" type="Button" parent="ButtonContainer/VBox"]
 unique_name_in_owner = true
@@ -94,11 +104,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_minimum_size = Vector2i(300, 60)
+custom_minimum_size = Vector2i(300, 50)
 text = "Reset Save"
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
 
+[connection signal="pressed" from="ButtonContainer/VBox/DailyRewardButton" to="." method="_on_daily_reward_pressed"]
 [connection signal="pressed" from="ButtonContainer/VBox/NewGameButton" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="ButtonContainer/VBox/ContinueButton" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="ButtonContainer/VBox/ResetSaveButton" to="." method="_on_reset_save_pressed"]
