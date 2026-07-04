@@ -72,8 +72,30 @@ No build/export is required for development testing.
 - **Rewarded ad one-claim** — Watch Ad x2 can only be used once per round. Button changes to "Reward Claimed" permanently.
 - **Pause/restart** — pause button in the HUD opens a menu with Resume, Restart Round, and Main Menu.
 - **Offline earnings** — saves timestamp, calculates coins based on Offline Earnings upgrade level (up to 2h cap).
-- **Sound placeholders** — procedural sine wave beeps for correct/wrong/coin events.
-- **Drag reliability** — bin drop zones expanded by 15px on each side for forgiveness.
+- **Debug overlay** — tap "DBG" in HUD to show FPS, item count, spawn rate, input mode
+- **Touch input** — structurally ready for mobile (mouse + touch events handled)
+- **Max item cap** — 30 items max to prevent performance issues
+- **Sound placeholders** — procedural sine wave beeps for correct/wrong/coin events
+- **Drag reliability** — bin drop zones expanded by 15px on each side for forgiveness
+
+## Known Limitations
+
+### Batch 003 — Android Export Status
+- **Android export preset** scaffolded (`export_presets.cfg`) — debug mode, no signing secrets
+- **Not tested on real Android hardware** — SDK setup and USB/ADB install required
+- **No safe-area/notch handling** — canvas_items stretch works but not notch-optimized
+- **No performance profiling** on mobile hardware
+- **No real ads or IAP SDKs** — Google Play Billing omitted intentionally
+- **Placeholder art only**
+- **No audio on Android** — procedural sounds work but untested
+
+### What Must Wait Until iOS/Mac/Apple Developer Account
+
+- iOS export preset requires macOS + Xcode
+- Apple Developer Program membership ($99/year) for distribution
+- StoreKit integration for iOS IAP
+- Any iOS-specific ad SDK integration
+- Notarization / TestFlight setup
 
 ## Tech Stack
 

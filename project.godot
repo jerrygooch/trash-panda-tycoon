@@ -19,6 +19,7 @@ window/size/borderless=false
 window/dpi/allow_hidpi=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=1
 
 [input]
 ui_accept={
@@ -44,4 +45,12 @@ enable_console=true
 enabled=false
 
 [editor_plugins]
+enabled=PackedStringArray()
+
+[android]
+pkg_name="com.jerrygooch.trashpandatycoon"
+min_sdk=23
+target_sdk=36
+
+[gdextensions]
 enabled=PackedStringArray()

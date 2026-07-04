@@ -48,6 +48,7 @@ Use this checklist to validate the MVP after each build.
 - [ ] Upgrade levels persist after closing and reopening
 - [ ] Best round score persists
 - [ ] Reset Save clears all progress
+- [ ] Save file uses `user://` path (no Windows hardcode)
 
 ## Platform Stubs
 - [ ] "Watch Ad x2" button works and doubles earnings
@@ -81,12 +82,30 @@ Use this checklist to validate the MVP after each build.
 - [ ] No C# files created
 - [ ] No Mono dependencies
 
+## Batch 003 — Android Export & Mobile Sanity
+- [ ] Android export preset exists (`export_presets.cfg`)
+- [ ] Preset uses debug mode (no signing secrets)
+- [ ] `.gitignore` protects `*.keystore` and `*.jks`
+- [ ] No keystore or private signing files committed
+- [ ] `project.godot` has portrait orientation lock
+- [ ] `project.godot` has package name set
+- [ ] Items can be dragged with **touch** (if on mobile/touch device)
+- [ ] Items can still be dragged with **mouse** (Windows)
+- [ ] Debug overlay toggles via DBG button
+- [ ] Debug overlay shows FPS, item count, spawn rate, input mode
+- [ ] Max active items capped at 30 (no unbounded buildup)
+- [ ] Console has no runaway tween/node warnings
+- [ ] `user://` saves work on desktop (cross-platform path)
+- [ ] No real ad/IAP SDKs or plugins
+- [ ] No Google Play Services dependencies
+- [ ] No addons/ or android/ folders committed
+
 ## Structural
 - [ ] No C# files in the project
 - [ ] No Mono dependencies
 - [ ] All scripts are typed GDScript
 - [ ] project.godot has `dotnet/enabled=false`
-- [ ] No real SDKs or plugins
+- [ ] No real SDKs or plugins in project.godot
 - [ ] Portrait 720x1280 resolution
 - [ ] All scenes load without errors
 
@@ -95,3 +114,5 @@ Use this checklist to validate the MVP after each build.
 - Check Output panel for errors and log messages
 - Check Debugger panel for script errors
 - Test on windowed mode at 720x1280
+- For Android: export APK via `godot --headless --export-debug "Android Debug" build.apk`
+- Enable debug overlay by tapping "DBG" button in HUD (top-right)

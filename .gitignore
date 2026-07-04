@@ -17,6 +17,11 @@ auth.json
 credentials.json
 *.secret
 
+# Android signing
+*.keystore
+*.jks
+export_presets.cfg.local
+
 # OS
 .DS_Store
 Thumbs.db

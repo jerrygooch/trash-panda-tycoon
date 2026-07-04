@@ -2,11 +2,12 @@ extends Node
 class_name GameManager
 
 # GameManager — controls a single round of gameplay
-# Batch 002: combo, ad one-claim, pause/restart, juice, sound, offline earnings display
+# Batch 003: max item cap, debug overlay pass-through, Android-safe save
 
 const ROUND_DURATION: float = 30.0
 const COMBO_MILESTONE: int = 5
 const COMBO_BONUS: int = 5
+const MAX_ACTIVE_ITEMS: int = 30  # safety cap to prevent unbounded buildup
 
 var _round_active: bool = false
 var _paused: bool = false
@@ -65,12 +66,12 @@ func _setup_timers() -> void:
 	_spawn_timer.one_shot = false
 	_spawn_timer.timeout.connect(_spawn_item)
 	add_child(_spawn_timer)
-	
+
 	_round_timer = Timer.new()
 	_round_timer.one_shot = true
 	_round_timer.timeout.connect(_on_round_timeout)
 	add_child(_round_timer)
-	
+
 	_mess_check_timer = Timer.new()
 	_mess_check_timer.one_shot = false
 	_mess_check_timer.wait_time = 0.25
@@ -93,33 +94,32 @@ func start_round() -> void:
 	GameState.reset_round()
 	_round_earnings_multiplier = 1
 	_combo_last_bonus_at = 0
-	
+
 	_spawn_interval = GameState.get_spawn_interval()
 	_trash_value_mult = GameState.get_trash_value_multiplier()
 	_max_mess = GameState.get_mess_capacity()
-	
+
 	_round_active = true
 	_paused = false
 	_mess_level = 0
 	_time_remaining = ROUND_DURATION
 	_items_on_belt.clear()
 	_clear_conveyor()
-	
+
 	_hud.show()
 	_results_screen.hide()
 	_upgrade_screen.hide()
 	_pause_menu.hide()
-	
+
 	_spawn_timer.wait_time = _spawn_interval
 	_spawn_timer.start()
 	_round_timer.wait_time = ROUND_DURATION
 	_round_timer.start()
 	_mess_check_timer.start()
-	
+
 	_spawn_item()
 	_update_hud()
-	
-	# Show offline earnings if any
+
 	var offline_coins: int = SaveSystem.claim_offline_earnings_display()
 	if offline_coins > 0:
 		_hud.show_offline_message(offline_coins)
@@ -129,35 +129,39 @@ func start_round() -> void:
 func _spawn_item() -> void:
 	if not _round_active or _paused:
 		return
-	
+
+	# Safety cap: prevent unbounded item buildup on mobile
+	if _items_on_belt.size() >= MAX_ACTIVE_ITEMS:
+		return
+
 	var item_data: Dictionary = _trash_data.pick_random()
 	var item_scene: PackedScene = preload("res://scenes/game/TrashItem.tscn")
 	var item: Node = item_scene.instantiate()
-	
+
 	item.initialize(item_data, _trash_value_mult)
-	
+
 	var belt_width: float = _conveyor_container.size.x - 40.0
 	var x_pos: float = randf_range(20.0, maxf(40.0, belt_width))
 	item.position = Vector2(x_pos, -60.0)
-	
+
 	_conveyor_container.add_child(item)
 	_items_on_belt.append(item)
-	
+
 	item.item_dropped_on_bin.connect(_on_item_dropped_on_bin.bind(item))
 
 
 func _on_item_dropped_on_bin(item: Node) -> void:
 	if not _round_active or _paused or not is_instance_valid(item):
 		return
-	
+
 	var drop_pos: Vector2 = item.global_position + Vector2(30, 30)
 	var bin: Node = _get_bin_at_position(drop_pos)
-	
+
 	if bin and bin.category == item.category:
 		_on_correct_sort(item, bin)
 	else:
 		_on_wrong_sort(item, bin)
-	
+
 	_remove_item(item)
 	_update_hud()
 
@@ -166,8 +170,7 @@ func _on_correct_sort(item: Node, bin: Node) -> void:
 	var coins: int = item.base_value * _trash_value_mult
 	GameState.add_coins(coins)
 	GameState.add_correct_sort()
-	
-	# Combo check
+
 	var combo: int = GameState.combo
 	if combo > 0 and combo % COMBO_MILESTONE == 0 and combo > _combo_last_bonus_at:
 		_combo_last_bonus_at = combo
@@ -176,23 +179,19 @@ func _on_correct_sort(item: Node, bin: Node) -> void:
 		_show_feedback(item.global_position, "Combo x%d! +%d" % [combo, bonus], Color(1, 0.5, 0, 1))
 	elif coins > 0:
 		_show_feedback(item.global_position, "+%d" % coins, Color.GREEN)
-	
-	# Juice
+
 	_sound_mgr.play_correct()
 	if bin and bin.has_method("flash_correct"):
 		bin.flash_correct()
 	_item_pop_effect(item)
-	
-	print("[Game] Correct: ", item.item_name, " -> ", bin.bin_name if bin else "?")
 
 
 func _on_wrong_sort(item: Node, bin: Node) -> void:
 	GameState.add_wrong_sort()
 	_increase_mess_and_check()
-	
+
 	_show_feedback(item.global_position, "Wrong!", Color.RED)
-	
-	# Juice
+
 	_sound_mgr.play_wrong()
 	if bin and bin.has_method("flash_wrong"):
 		bin.flash_wrong()
@@ -211,16 +210,16 @@ func _get_bin_at_position(global_pos: Vector2) -> Node:
 func _check_missed_items() -> void:
 	if not _round_active or _paused:
 		return
-	
+
 	var to_remove: Array = []
 	var screen_bottom: float = get_viewport().get_visible_rect().size.y + 100.0
-	
+
 	for item in _items_on_belt:
 		if not is_instance_valid(item):
 			to_remove.append(item)
 		elif item.global_position.y > screen_bottom:
 			to_remove.append(item)
-	
+
 	for item in to_remove:
 		GameState.add_missed_item()
 		_increase_mess_and_check()
@@ -230,11 +229,12 @@ func _check_missed_items() -> void:
 
 func _increase_mess_and_check() -> void:
 	_mess_level += 1
-	# Mess meter pulse
-	var tween: Tween = create_tween()
-	tween.tween_property(_hud.get_node_or_null("%MessBar"), "modulate:a", 0.6, 0.05)
-	tween.tween_property(_hud.get_node_or_null("%MessBar"), "modulate:a", 1.0, 0.15)
-	
+	var mess_bar = _hud.get_node_or_null("%MessBar")
+	if mess_bar:
+		var tween: Tween = create_tween()
+		tween.tween_property(mess_bar, "modulate:a", 0.6, 0.05)
+		tween.tween_property(mess_bar, "modulate:a", 1.0, 0.15)
+
 	if _mess_level >= _max_mess:
 		_end_round()
 
@@ -249,7 +249,7 @@ func _show_feedback(pos: Vector2, text: String, color: Color) -> void:
 	label.position = pos - Vector2(60, 0)
 	label.size = Vector2(120, 30)
 	add_child(label)
-	
+
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(label, "position:y", label.position.y - 50.0, 0.7)
@@ -267,7 +267,6 @@ func _item_pop_effect(item: Node) -> void:
 	tween.finished.connect(_remove_item.bind(item))
 
 
-
 func _screen_shake(intensity: float, duration: float) -> void:
 	var camera: Camera2D = get_viewport().get_camera_2d()
 	if camera:
@@ -278,10 +277,7 @@ func _screen_shake(intensity: float, duration: float) -> void:
 
 
 func _apply_shake(_rem: float, camera: Camera2D, orig: Vector2) -> void:
-	camera.offset = orig + Vector2(
-		randf_range(-3.0, 3.0),
-		randf_range(-3.0, 3.0)
-	)
+	camera.offset = orig + Vector2(randf_range(-3.0, 3.0), randf_range(-3.0, 3.0))
 
 
 func _reset_shake(camera: Camera2D, orig: Vector2) -> void:
@@ -337,8 +333,7 @@ func _on_main_menu() -> void:
 	_mess_check_timer.stop()
 	_clear_conveyor()
 	SaveSystem.save_game()
-	
-	# Go back to main menu via Main node
+
 	var main: Node = get_node("/root/Main")
 	if main and main.has_method("_show_main_menu"):
 		main._show_main_menu()
@@ -355,17 +350,17 @@ func _on_round_timeout() -> void:
 func _end_round() -> void:
 	if not _round_active:
 		return
-	
+
 	_round_active = false
 	_spawn_timer.stop()
 	_round_timer.stop()
 	_mess_check_timer.stop()
 	_pause_menu.hide()
-	
+
 	_clear_conveyor()
 	GameState.apply_round_earnings()
 	SaveSystem.save_game()
-	
+
 	var results: Dictionary = {
 		"coins": GameState.round_coins * _round_earnings_multiplier,
 		"correct": GameState.round_correct,
@@ -375,11 +370,11 @@ func _end_round() -> void:
 		"round_number": GameState.round_number,
 		"max_combo": GameState.max_combo
 	}
-	
+
 	_hud.hide()
 	_results_screen.show()
 	_results_screen.display_results(results)
-	
+
 	print("[GameManager] Round ended — coins: ", results.coins,
 		" correct: ", results.correct, " wrong: ", results.wrong,
 		" missed: ", results.missed)
@@ -405,21 +400,21 @@ func _on_upgrades_closed() -> void:
 func _on_watch_ad_requested() -> void:
 	if GameState.round_ad_claimed:
 		return
-	
+
 	var ad_btn: Button = _results_screen.get_node_or_null("%WatchAdButton")
 	if ad_btn:
 		ad_btn.disabled = true
 		ad_btn.text = "Loading..."
-	
+
 	var reward_granted: bool = await PlatformService.show_rewarded_ad("double_earnings")
-	
+
 	if reward_granted:
 		GameState.round_ad_claimed = true
 		_round_earnings_multiplier = 2
 		var doubled_coins: int = GameState.round_coins
 		GameState.total_coins += doubled_coins
 		SaveSystem.save_game()
-		
+
 		var results: Dictionary = {
 			"coins": GameState.round_coins * 2,
 			"correct": GameState.round_correct,
@@ -432,7 +427,7 @@ func _on_watch_ad_requested() -> void:
 		_results_screen.display_results(results)
 		_show_feedback(Vector2(360, 600), "Earnings DOUBLED!", Color(1, 0.84, 0, 1))
 		_sound_mgr.play_coin()
-	
+
 	if ad_btn:
 		ad_btn.disabled = true
 		ad_btn.text = "Reward Claimed"
@@ -451,7 +446,9 @@ func _update_hud() -> void:
 		_mess_level,
 		_max_mess,
 		GameState.round_number,
-		GameState.combo
+		GameState.combo,
+		_items_on_belt.size(),
+		_spawn_interval
 	)
 
 

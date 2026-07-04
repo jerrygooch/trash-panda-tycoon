@@ -4,47 +4,81 @@
 
 ### Prerequisites
 - Godot 4.7 standard (already in use)
-- Java/JDK (version 17 recommended)
-- Android SDK + NDK
-- Android export template for Godot 4.7
+- **Android Studio** (includes SDK Manager, AVD emulator, command-line tools)
+- Android SDK (API 34–36) + NDK (installed via Android Studio SDK Manager)
+- Android export template for Godot 4.7 (`hermes tools` or Godot → Editor Settings → Export → Android → Install Templates)
+- Java/JDK 17+ (bundled with Android Studio or standalone)
 
-### Steps
-1. Install Android SDK (Android Studio or command-line tools)
-2. Install Android export templates in Godot:
-   - Editor → Editor Settings → Export → Android
-   - Point to Android SDK path
-   - Install the Android platform
-3. Create an Android export preset:
-   - Project → Export → Add → Android
-   - Set package name (e.g., `com.tigerninjachan.trashpandatycoon`)
-   - Configure minimum SDK, target SDK
-   - Sign with a debug keystore for testing
-4. Build an APK:
-   - Export → Export Android → Export Project
-   - Transfer to Android device or use ADB install
-5. Before release:
-   - Set up a release keystore
-   - Set version code and number
-   - Configure Google Play Console listing
+### Setup Steps
 
-### MVP Limitations for Android
-- No touch input tuning yet (mouse drag structure should work with touch)
-- No real ad SDK (stub returns success)
-- No real IAP (stub logs only)
-- No screen size adaptation testing yet
-- No performance profiling for mobile hardware
+1. **Install Android Studio**
+   - Download from https://developer.android.com/studio
+   - During installation, ensure SDK components are selected
+   - Note the SDK path (default: `C:\Users\<you>\AppData\Local\Android\Sdk`)
+
+2. **Configure Godot**
+   - Open Godot → Editor → Editor Settings → Export → Android
+   - Set the Android SDK path to your SDK location
+   - Set the Android NDK path (bundled with SDK via SDK Manager)
+   - Godot will auto-detect the JDK from Android Studio
+   - Install Android export templates if prompted
+
+3. **Verify the export preset**
+   - The project includes `export_presets.cfg` with an "Android Debug" preset
+   - Package name: `com.jerrygooch.trashpandatycoon`
+   - Min SDK: 23 (Android 6.0), Target SDK: 36 (Android 16)
+   - Architecture: arm64-v8a only (no x86/x86_64 for smaller APK)
+   - No signing keystore is configured — Android Studio generates a debug keystore automatically
+   - **Do not add release keystore credentials to `export_presets.cfg`**
+
+### Building a Debug APK
+
+```bash
+# Method 1: Godot Editor
+# Project → Export → Android Debug → Export Project
+# Save as .apk or .aab
+
+# Method 2: Command line (Godot headless)
+godot --headless --export-debug "Android Debug" builds/trash-panda-tycoon-debug.apk
+```
+
+### Installing on a Device
+- Enable Developer Options and USB Debugging on the Android device
+- Connect via USB or use ADB wireless debugging
+- Run: `adb install builds/trash-panda-tycoon-debug.apk`
+
+### Android-Specific Notes for This Project
+
+- **Touch input**: `TrashItem.gd` handles both `InputEventMouse*` and `InputEventScreenTouch/Drag`
+- **Safe areas**: Stretch mode is `canvas_items` with `expand` aspect — works on most screen ratios
+- **Orientation**: Portrait locked (`window/handheld/orientation=1` in project.godot)
+- **Debug overlay**: Tap the "DBG" button in the HUD to show FPS, item count, spawn rate, and input mode
+- **No real plugins**: No Google Play Services, no ad SDKs, no IAP SDKs are included
+
+### Current Android Limitations
+- Touch input is structurally ready but untested on real hardware
+- No safe-area/notch/punch-hole handling
+- No performance profiling on mobile hardware
+- No real ad or IAP SDK
+- Placeholder art only — no texture-optimized assets
+- No controller or keyboard support for mobile
+
+### Signing for Release
+1. Generate a release keystore: `keytool -genkey -v -keystore release.keystore -alias trashpanda -keyalg RSA -keysize 2048 -validity 10000`
+2. Add to export preset: Project → Export → Android → Keystore → Release → point to `release.keystore`
+3. **Never commit** the keystore file or its passwords — they are ignored by `.gitignore` (`*.keystore`, `*.jks`)
 
 ## iOS (Requires macOS)
 
 ### Prerequisites
-- A Mac (real hardware or Mac VM — no Hackintosh for Xcode)
-- Xcode (latest stable)
+- A Mac (real hardware or Mac VM)
+- Xcode (latest stable, from Mac App Store)
 - Apple Developer Program membership ($99/year)
 - iOS export template for Godot 4.7
 
 ### Steps
 1. On the Mac:
-   - Install Xcode from Mac App Store
+   - Install Xcode
    - Install Godot 4.7 on the Mac
    - Install iOS export templates
    - Open the project on the Mac

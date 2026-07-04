@@ -1,33 +1,40 @@
 # Next Steps (Post-MVP)
 
-## Priority 1 — Gameplay Feel
+## Priority 1 — Gameplay Feel (Batch 002)
 - Tune spawn rate ramp: start slow, get faster
-- Add visual conveyor belt animation (shader or tiled sprite)
-- Add item drop shadow feedback
-- Add bin highlight on hover
-- Add combo counter for consecutive correct sorts
-- Add screen shake on wrong sort / full mess
+- Conveyor belt animation (scrolling stripes)
+- Combo/streak mechanic with milestone bonuses
+- Sorting feedback juice (floating text, bin flash, screen shake)
+- Pause/restart round flow
+- Rewarded ad one-claim per round
+- Offline earnings with 2h cap and claim popup
+- Procedural sound placeholders
 
-## Priority 2 — Real Assets
+**Status:** ✅ Complete
+
+## Priority 2 — Android Export (Batch 003)
+- Android export preset (debug, no signing secrets committed)
+- Touch input support (mouse + touch events in TrashItem)
+- Mobile debug overlay (FPS, item count, spawn rate, input mode)
+- Max active item cap (30) to prevent mobile performance issues
+- Portrait orientation lock
+- Android Studio SDK setup documentation
+- Save/load uses `user://` (platform-agnostic, no Windows-specific paths)
+
+**Status:** ✅ Complete
+
+## Priority 3 — Real Assets
 - Generate raccoon mascot icon via ComfyUI (Animagine XL 4.0)
 - Generate trash item sprites (Pixel Art Diffusion XL)
 - Replace ColorRect placeholders with real textures
 - Add particle effects for sorting feedback
 
-## Priority 3 — Juice & Feedback
-- Add sound effects (correct sort, wrong sort, round end, coin earned)
-- Add background music
-- Add coin-animation (fly to total)
-- Add round start / end transitions
-- Add mess meter visual effects (pulsing red at high mess)
-
-## Priority 4 — Android Export
-- Add Android export preset
-- Install Android SDK / JDK / NDK
-- Test on physical Android device
-- Tune touch input sensitivity
-- Handle safe areas and different aspect ratios
-- Performance profiling for mobile
+## Priority 4 — Juice & Feedback
+- Better sound effects (correct sort, wrong sort, round end, coin earned)
+- Background music
+- Coin-animation (fly to total)
+- Round start / end transitions
+- Mess meter visual effects (pulsing red at high mess)
 
 ## Priority 5 — Real Monetization
 - Add AdMob (or Unity Ads) plugin for Android
