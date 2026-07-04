@@ -36,7 +36,7 @@ func _ready() -> void:
 	_load_bins()
 	_setup_timers()
 	_connect_signals()
-	_settings_screen.settings_closed.connect(_on_settings_closed)
+	_settings_screen.connect("settings_closed", _on_settings_closed)
 	# Auto-start first round when the game scene loads
 	start_round()
 
@@ -81,15 +81,15 @@ func _setup_timers() -> void:
 
 
 func _connect_signals() -> void:
-	_results_screen.next_round_requested.connect(_on_next_round)
-	_results_screen.upgrade_requested.connect(_on_upgrade_requested)
-	_results_screen.watch_ad_requested.connect(_on_watch_ad_requested)
-	_upgrade_screen.upgrades_closed.connect(_on_upgrades_closed)
-	_pause_menu.resume_requested.connect(_on_resume)
-	_pause_menu.restart_requested.connect(_on_restart_round)
-	_pause_menu.settings_requested.connect(_on_settings)
-	_pause_menu.main_menu_requested.connect(_on_main_menu)
-	_hud.pause_pressed.connect(_on_pause)
+	_results_screen.connect("next_round_requested", _on_next_round)
+	_results_screen.connect("upgrade_requested", _on_upgrade_requested)
+	_results_screen.connect("watch_ad_requested", _on_watch_ad_requested)
+	_upgrade_screen.connect("upgrades_closed", _on_upgrades_closed)
+	_pause_menu.connect("resume_requested", _on_resume)
+	_pause_menu.connect("restart_requested", _on_restart_round)
+	_pause_menu.connect("settings_requested", _on_settings)
+	_pause_menu.connect("main_menu_requested", _on_main_menu)
+	_hud.connect("pause_pressed", _on_pause)
 
 
 func start_round() -> void:
@@ -217,7 +217,7 @@ func _check_missed_items() -> void:
 
 func _increase_mess_and_check() -> void:
 	_mess_level += 1
-	var mess_bar = _hud.get_node_or_null("%MessBar")
+	var mess_bar = _hud.get_node_or_null("MessBar")
 	if mess_bar:
 		var tween: Tween = create_tween()
 		tween.tween_property(mess_bar, "modulate:a", 0.6, 0.05)
@@ -417,7 +417,7 @@ func _on_settings() -> void:
 
 func _on_watch_ad_requested() -> void:
 	if GameState.round_ad_claimed: return
-	var ad_btn: Button = _results_screen.get_node_or_null("%WatchAdButton")
+	var ad_btn: Button = _results_screen.get_node_or_null("Scroll/VBox/WatchAdButton")
 	if ad_btn:
 		ad_btn.disabled = true
 		ad_btn.text = "Loading..."

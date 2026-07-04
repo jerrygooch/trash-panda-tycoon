@@ -4,9 +4,9 @@ extends Control
 
 signal settings_closed()
 
-@onready var _sfx_toggle: CheckBox = %SfxToggle
-@onready var _debug_toggle: CheckBox = %DebugToggle
-@onready var _vibration_toggle: CheckBox = %VibrationToggle
+@onready var _sfx_toggle: CheckBox = $Panel/VBox/SfxToggle
+@onready var _debug_toggle: CheckBox = $Panel/VBox/DebugToggle
+@onready var _vibration_toggle: CheckBox = $Panel/VBox/VibrationToggle
 
 
 func _ready() -> void:
@@ -15,9 +15,12 @@ func _ready() -> void:
 
 func _load_settings() -> void:
 	var s: Dictionary = GameState.settings
-	_sfx_toggle.button_pressed = s.get("sfx_enabled", true)
-	_debug_toggle.button_pressed = s.get("debug_overlay", false)
-	_vibration_toggle.button_pressed = s.get("vibration_enabled", false)
+	if _sfx_toggle:
+		_sfx_toggle.button_pressed = s.get("sfx_enabled", true)
+	if _debug_toggle:
+		_debug_toggle.button_pressed = s.get("debug_overlay", false)
+	if _vibration_toggle:
+		_vibration_toggle.button_pressed = s.get("vibration_enabled", false)
 
 
 func _on_sfx_toggled(toggled: bool) -> void:
@@ -29,7 +32,7 @@ func _on_debug_toggled(toggled: bool) -> void:
 	GameState.settings.debug_overlay = toggled
 	SaveSystem.save_game()
 	# Update HUD debug overlay visibility
-	var hud = get_node_or_null("/root/Game/%Hud")
+	var hud = get_tree().root.get_node_or_null("Main/Game/Hud")
 	if hud and hud.has_method("_toggle_debug"):
 		hud._toggle_debug()
 

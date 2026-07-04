@@ -9,17 +9,17 @@ const DEBUG_ENABLED: bool = false
 var _debug_visible: bool = false
 var _mess_danger_shown: bool = false
 
-@onready var _coins_label: Label = %CoinsLabel
-@onready var _timer_label: Label = %TimerLabel
-@onready var _mess_bar: ProgressBar = %MessBar
-@onready var _mess_label: Label = %MessLabel
-@onready var _round_label: Label = %RoundLabel
-@onready var _level_label: Label = %LevelLabel
-@onready var _combo_label: Label = %ComboLabel
-@onready var _pause_btn: Button = %PauseButton
-@onready var _debug_btn: Button = %DebugButton
-@onready var _debug_label: Label = %DebugLabel
-@onready var _danger_label: Label = %DangerLabel
+@onready var _coins_label: Label = $Grid/CoinsLabel
+@onready var _timer_label: Label = $TimerLabel
+@onready var _mess_bar: ProgressBar = $MessBar
+@onready var _mess_label: Label = $MessLabel
+@onready var _round_label: Label = $Grid/RoundLabel
+@onready var _level_label: Label = $Grid/LevelLabel
+@onready var _combo_label: Label = $ComboLabel
+@onready var _pause_btn: Button = $PauseButton
+@onready var _debug_btn: Button = $DebugButton
+@onready var _debug_label: Label = $DebugLabel
+@onready var _danger_label: Label = $DangerLabel
 
 
 func _ready() -> void:

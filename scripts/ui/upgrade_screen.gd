@@ -24,7 +24,7 @@ func _load_upgrades() -> Array:
 
 
 func _build_upgrade_list() -> void:
-	var container: VBoxContainer = %UpgradeListContainer
+	var container: VBoxContainer = $Panel/VBoxContainer/ScrollContainer/UpgradeListContainer
 	if not container: return
 	for child in container.get_children(): child.queue_free()
 
@@ -131,7 +131,7 @@ func _find_upgrade(uid: String) -> Dictionary:
 
 
 func _show() -> void:
-	var coins_label: Label = %CoinsLabel
+	var coins_label: Label = $Panel/VBoxContainer/CoinsLabel
 	if coins_label:
 		coins_label.text = "\U0001FA99 " + str(GameState.total_coins)
 	for upgrade in _upgrade_data:
