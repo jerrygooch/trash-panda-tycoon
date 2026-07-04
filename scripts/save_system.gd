@@ -24,10 +24,7 @@ func save_game() -> void:
 		"lifetime_best_combo": GameState.lifetime_best_combo,
 		"lifetime_rounds_played": GameState.lifetime_rounds_played,
 		"lifetime_upgrades_purchased": GameState.lifetime_upgrades_purchased,
-		"settings": {
-			"music_volume": 1.0,
-			"sfx_volume": 1.0
-		}
+		"settings": GameState.settings.duplicate()
 	}
 
 	var file: FileAccess = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
@@ -72,6 +69,11 @@ func load_game() -> bool:
 	GameState.lifetime_best_combo = data.get("lifetime_best_combo", 0)
 	GameState.lifetime_rounds_played = data.get("lifetime_rounds_played", 0)
 	GameState.lifetime_upgrades_purchased = data.get("lifetime_upgrades_purchased", 0)
+
+	# Load settings
+	var saved_settings: Dictionary = data.get("settings", {})
+	for key in saved_settings:
+		GameState.settings[key] = saved_settings[key]
 
 	var upgrades: Dictionary = data.get("upgrade_levels", {})
 	for key in upgrades:

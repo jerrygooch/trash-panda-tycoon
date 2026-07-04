@@ -25,6 +25,7 @@ var _round_logged: bool = false
 @onready var _results_screen: Control = %ResultsScreen
 @onready var _upgrade_screen: Control = %UpgradeScreen
 @onready var _pause_menu: Control = %PauseMenu
+@onready var _settings_screen: Control = %SettingsScreen
 @onready var _conveyor_container: Control = %ConveyorContainer
 @onready var _bins_container: HBoxContainer = %BinsContainer
 @onready var _sound_mgr: Node = %SoundManager
@@ -35,6 +36,7 @@ func _ready() -> void:
 	_load_bins()
 	_setup_timers()
 	_connect_signals()
+	_settings_screen.settings_closed.connect(_on_settings_closed)
 
 
 func _load_json(path: String) -> Array:
@@ -83,6 +85,7 @@ func _connect_signals() -> void:
 	_upgrade_screen.upgrades_closed.connect(_on_upgrades_closed)
 	_pause_menu.resume_requested.connect(_on_resume)
 	_pause_menu.restart_requested.connect(_on_restart_round)
+	_pause_menu.settings_requested.connect(_on_settings)
 	_pause_menu.main_menu_requested.connect(_on_main_menu)
 	_hud.pause_pressed.connect(_on_pause)
 
@@ -165,6 +168,7 @@ func _on_correct_sort(item: Node, bin: Node) -> void:
 		var bonus: int = Tuning.COMBO_BONUS * (combo / Tuning.COMBO_MILESTONE)
 		GameState.add_coins(bonus)
 		_show_feedback(item.global_position, "Combo x%d! +%d" % [combo, bonus], Color(1, 0.5, 0, 1))
+		_sound_mgr.play_combo()
 	elif coins > 0:
 		_show_feedback(item.global_position, "+%d" % coins, Color.GREEN)
 
@@ -384,6 +388,13 @@ func _on_next_round() -> void:
 	start_round()
 
 
+func _on_settings_closed() -> void:
+	_settings_screen.hide()
+	if _round_active or _paused:
+		_pause_menu.show()
+		_hud.show()
+
+
 func _on_upgrade_requested() -> void:
 	_results_screen.hide()
 	_upgrade_screen.show()
@@ -393,6 +404,13 @@ func _on_upgrade_requested() -> void:
 func _on_upgrades_closed() -> void:
 	_upgrade_screen.hide()
 	_results_screen.show()
+
+
+func _on_settings() -> void:
+	_pause_menu.hide()
+	_hud.hide()
+	_settings_screen.show()
+	_settings_screen._load_settings()
 
 
 func _on_watch_ad_requested() -> void:

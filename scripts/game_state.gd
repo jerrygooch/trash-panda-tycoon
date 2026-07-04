@@ -8,7 +8,14 @@ var best_round_score: int = 0
 var remove_ads_owned: bool = false
 var upgrade_levels: Dictionary = {}
 var last_save_timestamp: int = 0
-var empire_level: int = 0     # progression: increments per round completed
+var empire_level: int = 0
+
+# Settings (persisted)
+var settings: Dictionary = {
+	sfx_enabled = true,
+	debug_overlay = false,
+	vibration_enabled = false
+}
 
 # Round-specific (reset each round)
 var round_coins: int = 0

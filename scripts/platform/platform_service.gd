@@ -58,3 +58,17 @@ func is_mobile() -> bool:
 
 func is_desktop() -> bool:
 	return not is_mobile()
+
+
+# --- Haptics stubs (log only on desktop; wire to Android Vibrator service later) ---
+
+func vibrate_short() -> void:
+	print("[Haptics] Short vibration (stub)")
+
+
+func vibrate_success() -> void:
+	print("[Haptics] Success vibration (stub)")
+
+
+func vibrate_error() -> void:
+	print("[Haptics] Error vibration (stub)")
