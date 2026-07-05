@@ -141,9 +141,7 @@ func _handle_drag_move(pos: Vector2) -> void:
 
 
 func _check_drop() -> void:
-	var game: Node = get_node_or_null("/root/Game")
-	if not game: _snap_back(); return
-	var bc: Control = game.get_node_or_null("BinsContainer")
+	var bc: Control = _find_bins_container()
 	if not bc: _snap_back(); return
 	var dp: Vector2 = global_position + Vector2(30, 30)
 	for bn in bc.get_children():
@@ -151,6 +149,15 @@ func _check_drop() -> void:
 			item_dropped_on_bin.emit()
 			return
 	_snap_back()
+
+
+func _find_bins_container() -> Control:
+	var node = get_parent()
+	while node:
+		if node.has_node("BinsContainer"):
+			return node.get_node("BinsContainer")
+		node = node.get_parent()
+	return null
 
 
 func _snap_back() -> void:

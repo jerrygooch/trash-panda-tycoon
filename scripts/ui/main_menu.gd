@@ -45,6 +45,22 @@ func _find_and_wire_buttons() -> void:
 	else:
 		push_error("[MainMenu] NewGameButton not found!")
 
+	# How to Play
+	var howto_btn: Button = %HowToPlayButton
+	if howto_btn:
+		if not howto_btn.pressed.is_connected(_on_how_to_play_pressed):
+			howto_btn.pressed.connect(_on_how_to_play_pressed)
+		print("[MainMenu] How to Play button found")
+	else:
+		push_error("[MainMenu] HowToPlayButton not found!")
+
+	# Got It
+	var gotit_btn: Button = %GotItButton
+	if gotit_btn:
+		if not gotit_btn.pressed.is_connected(_on_got_it_pressed):
+			gotit_btn.pressed.connect(_on_got_it_pressed)
+		print("[MainMenu] Got It button found")
+
 	# Continue
 	var cont_btn: Button = %ContinueButton
 	if cont_btn:
@@ -149,3 +165,17 @@ func _do_reset_save() -> void:
 	var continue_btn: Button = %ContinueButton
 	if continue_btn: continue_btn.disabled = true
 	_update_daily_button()
+
+
+func _on_how_to_play_pressed() -> void:
+	print("[MainMenu] How to Play pressed")
+	var overlay: ColorRect = %HowToPlayOverlay
+	if overlay:
+		overlay.show()
+
+
+func _on_got_it_pressed() -> void:
+	print("[MainMenu] Got it pressed")
+	var overlay: ColorRect = %HowToPlayOverlay
+	if overlay:
+		overlay.hide()

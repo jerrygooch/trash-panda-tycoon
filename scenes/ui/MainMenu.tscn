@@ -111,6 +111,15 @@ theme_override_font_sizes/font_size = 28
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 0.84, 0, 1)
 
+[node name="HowToPlayButton" type="Button" parent="ButtonContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_minimum_size = Vector2i(300, 48)
+text = "How to Play"
+theme_override_font_sizes/font_size = 18
+
 [node name="ContinueButton" type="Button" parent="ButtonContainer/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -153,3 +162,52 @@ horizontal_alignment = 1
 theme_override_font_sizes/font_size = 11
 theme_override_colors/font_color = Color(0.3, 0.3, 0.4, 1)
 mouse_filter = 2
+
+[node name="HowToPlayOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="HowToPlayOverlay"]
+layout_mode = 0
+offset_left = 40
+offset_top = 200
+offset_right = 680
+offset_bottom = 1050
+
+[node name="VBox" type="VBoxContainer" parent="HowToPlayOverlay/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="HowToPlayOverlay/Panel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "How to Play"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+
+[node name="Instructions" type="Label" parent="HowToPlayOverlay/Panel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Item icons fall from the top.\nDrag them into the matching bin at the bottom.\n\nFood (green) → Food bin\nMetal (gray) → Metal bin\nPlastic (blue) → Plastic bin\n\nCorrect sort = coins, wrong sort = mess\nMess fills up = round ends early\n\nComplete rounds, buy upgrades, build your empire!"
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 2
+
+[node name="GotItButton" type="Button" parent="HowToPlayOverlay/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2i(200, 50)
+text = "Got it!"
+theme_override_font_sizes/font_size = 22
