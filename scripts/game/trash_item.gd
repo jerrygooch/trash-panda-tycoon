@@ -136,7 +136,7 @@ func _handle_drag_move(pos: Vector2) -> void:
 func _check_drop() -> void:
 	var game: Node = get_node_or_null("/root/Game")
 	if not game: _snap_back(); return
-	var bc: Control = game.get_node_or_null("%BinsContainer")
+	var bc: Control = game.get_node_or_null("BinsContainer")
 	if not bc: _snap_back(); return
 	var dp: Vector2 = global_position + Vector2(30, 30)
 	for bn in bc.get_children():

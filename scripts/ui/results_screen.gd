@@ -41,10 +41,15 @@ func display_results(results: Dictionary) -> void:
 	var mission_header: String = ""
 	var any_active: bool = false
 	for m in missions:
-		var status_icon: String = "\U00002705" if m.completed else "\U000025AB"
-		var claim_tag: String = "  [CLAIM!]" if m.completed and not m.claimed else ""
-		mission_text += "%s %s: %d/%d%s" % [status_icon, m.name, m.progress, m.req, claim_tag] + "\n"
-		if m.completed and not m.claimed:
+		var has_req: bool = m.has("req")
+		var status_icon: String = "\U00002705" if m.get("completed", false) else "\U000025AB"
+		var claim_tag: String = "  [CLAIM!]" if m.get("completed", false) and not m.get("claimed", false) else ""
+		var p: int = m.get("progress", 0)
+		var r: int = m.get("req", 1)
+		var nm: String = m.get("name", "Mission")
+		if has_req:
+			mission_text += "%s %s: %d/%d%s" % [status_icon, nm, p, r, claim_tag] + "\n"
+		if m.get("completed", false) and not m.get("claimed", false):
 			any_active = true
 	mission_header = "--- Missions ---\n" if not mission_text.is_empty() else ""
 	if misl: misl.text = mission_header + mission_text.strip_edges()
