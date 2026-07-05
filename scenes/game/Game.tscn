@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnkqq1kxogtxn"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/ui/Hud.tscn" id="2"]
@@ -14,53 +14,102 @@
 script = ExtResource("1")
 
 [node name="ConveyorContainer" type="Control" parent="."]
-unique_name_in_owner = true; layout_mode = 0
-offset_left = 0; offset_top = 200; offset_right = 720; offset_bottom = 780
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 0
+offset_top = 200
+offset_right = 720
+offset_bottom = 780
 mouse_filter = 1
 
 [node name="Conveyor" parent="ConveyorContainer" instance=ExtResource("5")]
-layout_mode = 1; anchors_preset = 15; anchor_right = 1.0; anchor_bottom = 1.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="BinsBackground" type="ColorRect" parent="."]
-layout_mode = 0; offset_left = 0; offset_top = 780; offset_right = 720; offset_bottom = 1280
+layout_mode = 0
+offset_left = 0
+offset_top = 780
+offset_right = 720
+offset_bottom = 1280
 color = Color(0.12, 0.12, 0.15, 1)
 
 [node name="BinsContainer" type="HBoxContainer" parent="."]
-unique_name_in_owner = true; layout_mode = 0
-offset_left = 10; offset_top = 800; offset_right = 710; offset_bottom = 1180
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10
+offset_top = 800
+offset_right = 710
+offset_bottom = 1180
 theme_override_constants/separation = 10
 
 [node name="bin_food" parent="BinsContainer" instance=ExtResource("4")]
-layout_mode = 2; size_flags_horizontal = 3; size_flags_vertical = 4
-custom_minimum_size = Vector2i(220, 360); color = Color(0.4, 0.73, 0.42, 0.85)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_minimum_size = Vector2i(220, 360)
+color = Color(0.4, 0.73, 0.42, 0.85)
 
 [node name="bin_metal" parent="BinsContainer" instance=ExtResource("4")]
-layout_mode = 2; size_flags_horizontal = 3; size_flags_vertical = 4
-custom_minimum_size = Vector2i(220, 360); color = Color(0.47, 0.56, 0.61, 0.85)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_minimum_size = Vector2i(220, 360)
+color = Color(0.47, 0.56, 0.61, 0.85)
 
 [node name="bin_plastic" parent="BinsContainer" instance=ExtResource("4")]
-layout_mode = 2; size_flags_horizontal = 3; size_flags_vertical = 4
-custom_minimum_size = Vector2i(220, 360); color = Color(0.26, 0.65, 0.96, 0.85)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_minimum_size = Vector2i(220, 360)
+color = Color(0.26, 0.65, 0.96, 0.85)
 
 [node name="Hud" parent="." instance=ExtResource("2")]
-unique_name_in_owner = true; layout_mode = 0
-offset_left = 0; offset_top = 0; offset_right = 720; offset_bottom = 200
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 720
+offset_bottom = 200
 
 [node name="ResultsScreen" parent="." instance=ExtResource("3")]
-unique_name_in_owner = true; visible = false; layout_mode = 0
-offset_left = 0; offset_top = 0; offset_right = 720; offset_bottom = 1280
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 720
+offset_bottom = 1280
 
 [node name="UpgradeScreen" parent="." instance=ExtResource("6")]
-unique_name_in_owner = true; visible = false; layout_mode = 0
-offset_left = 0; offset_top = 0; offset_right = 720; offset_bottom = 1280
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 720
+offset_bottom = 1280
 
 [node name="PauseMenu" parent="." instance=ExtResource("7")]
-unique_name_in_owner = true; visible = false; layout_mode = 0
-offset_left = 0; offset_top = 0; offset_right = 720; offset_bottom = 1280
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 720
+offset_bottom = 1280
 
 [node name="SoundManager" type="Node" parent="."]
-unique_name_in_owner = true; script = ExtResource("8")
+unique_name_in_owner = true
+script = ExtResource("8")
 
 [node name="SettingsScreen" parent="." instance=ExtResource("9")]
-unique_name_in_owner = true; visible = false; layout_mode = 0
-offset_left = 0; offset_top = 0; offset_right = 720; offset_bottom = 1280
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 720
+offset_bottom = 1280

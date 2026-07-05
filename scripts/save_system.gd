@@ -83,10 +83,14 @@ func load_game() -> bool:
 
 	# Restore missions
 	var saved_missions: Dictionary = data.get("missions", {})
-	if saved_missions.is_empty():
-		GameState.init_missions()
-	else:
-		GameState.missions = saved_missions
+	GameState.init_missions()
+	for key in saved_missions:
+		if GameState.missions.has(key):
+			var saved: Dictionary = saved_missions[key]
+			var current: Dictionary = GameState.missions[key]
+			current.progress = saved.get("progress", 0)
+			current.completed = saved.get("completed", false)
+			current.claimed = saved.get("claimed", false)
 
 	_calculate_offline_earnings()
 

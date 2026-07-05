@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://daxs4tiehnrjf"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/results_screen.gd" id="1"]
 
