@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func _find_and_wire_buttons() -> void:
 	# New Game / Play
-	var play_btn: Button = %NewGameButton
+	var play_btn: Button = %PlayButton
 	if play_btn:
 		if not play_btn.pressed.is_connected(_on_new_game_pressed):
 			play_btn.pressed.connect(_on_new_game_pressed)
