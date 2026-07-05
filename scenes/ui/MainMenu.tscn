@@ -208,26 +208,27 @@ vertical_alignment = 1
 theme_override_font_sizes/font_size = 28
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 
-[node name="Instructions" type="RichTextLabel" parent="HowToPlayOverlay/Panel/VBox"]
+[node name="Instructions" type="Label" parent="HowToPlayOverlay/Panel/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-bbcode_enabled = true
-text = "Trash items appear on the conveyor belt above.
+text = "Trash items appear on the conveyor belt.
 Drag them into the matching bin below:
 
-[color=#66BB6A]Food (green) → Food bin[/color]
-[color=#78909C]Metal (gray) → Metal bin[/color]
-[color=#42A5F5]Plastic (blue) → Plastic bin[/color]
+Food (green) -> Food bin
+Metal (gray) -> Metal bin
+Plastic (blue) -> Plastic bin
 
-Correct sort = [color=#FFD700]+coins[/color]
-Wrong sort = [color=#FF5252]+mess[/color]
+Correct sort = +coins
+Wrong sort = +mess (fills the mess meter)
 Mess fills up = round ends early
 
 Complete rounds, buy upgrades,
 build your raccoon empire!"
+vertical_alignment = 0
+autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
-scroll_active = false
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 
 [node name="GotItButton" type="Button" parent="HowToPlayOverlay/Panel/VBox"]
 unique_name_in_owner = true
