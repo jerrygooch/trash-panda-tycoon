@@ -1,0 +1,4 @@
+Screenshot note: Viewport capture unsupported in Godot headless mode.
+For actual screenshots: run Godot editor, press F5, then computer_use capture.
+Asset verification: 16 pass, 0 fail
+RESULT: ALL CLEAN

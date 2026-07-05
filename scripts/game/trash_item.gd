@@ -58,8 +58,7 @@ func _build_visual() -> void:
 	var tex_path: String = "res://art/generated/batch013/curated/icon_" + item_id + ".png"
 	var tex: Texture2D = load(tex_path) if ResourceLoader.exists(tex_path) else null
 	if tex:
-		# Use texture
-		_bg.color = Color.WHITE
+		# Use texture — no bg needed, texture rect fills the area
 		var tex_rect: TextureRect = TextureRect.new()
 		tex_rect.texture = tex
 		tex_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
