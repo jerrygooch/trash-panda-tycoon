@@ -1,7 +1,7 @@
 extends ColorRect
 class_name Bin
 
-# Bin — drop target with highlight states and expanded hit zone
+# Bin — drop target with highlight states, expanded hit zone, and texture icon support
 
 var category: String = "food"
 var bin_name: String = "Bin"
@@ -9,17 +9,37 @@ var bin_name: String = "Bin"
 @onready var _label: Label = $Label
 @onready var _highlight: ColorRect = $Highlight
 @onready var _bottom_bar: ColorRect = $BottomBar
+@onready var _icon_texture: TextureRect = $IconTexture
 
 
 func _ready() -> void:
-	if _label: _label.text = _get_icon() + "  " + bin_name
+	_update_label()
+	_try_load_texture()
 	if _highlight: _highlight.hide()
 
 
 func set_data(cat: String, name: String) -> void:
 	category = cat
 	bin_name = name
-	if _label: _label.text = _get_icon() + "  " + name
+	_update_label()
+	_try_load_texture()
+
+
+func _update_label() -> void:
+	if _label: _label.text = _get_icon() + "  " + bin_name
+
+
+func _try_load_texture() -> void:
+	if not _icon_texture: return
+	var tex_path: String = "res://art/generated/batch013/curated/bin_" + category + ".png"
+	if ResourceLoader.exists(tex_path):
+		var tex: Texture2D = load(tex_path)
+		if tex:
+			_icon_texture.texture = tex
+			_icon_texture.show()
+			return
+	# Fallback: hide texture rect, emoji label handles it
+	_icon_texture.hide()
 
 
 func get_drop_rect() -> Rect2:

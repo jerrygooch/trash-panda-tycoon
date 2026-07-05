@@ -35,6 +35,16 @@ offset_bottom = 360
 color = Color(0, 0, 0, 0.2)
 mouse_filter = 2
 
+[node name="IconTexture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 60
+offset_top = 120
+offset_right = 160
+offset_bottom = 220
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 10
