@@ -176,6 +176,18 @@ func _on_how_to_play_pressed() -> void:
 
 func _on_got_it_pressed() -> void:
 	print("[MainMenu] Got it pressed")
+	_close_how_to_play()
+
+
+func _close_how_to_play() -> void:
 	var overlay: ColorRect = %HowToPlayOverlay
 	if overlay:
 		overlay.hide()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	var overlay: ColorRect = %HowToPlayOverlay if has_node("%HowToPlayOverlay") else null
+	if overlay and overlay.visible:
+		if event.is_action_pressed("ui_cancel"):
+			get_viewport().set_input_as_handled()
+			_close_how_to_play()

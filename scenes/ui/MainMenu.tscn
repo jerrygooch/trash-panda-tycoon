@@ -2,6 +2,17 @@
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1"]
 
+[sub_resource type="StyleBoxFlat" id="SBF_HowToPlay"]
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.12, 0.12, 0.18, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -170,8 +181,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.65)
-mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+mouse_filter = 1
 
 [node name="Panel" type="Panel" parent="HowToPlayOverlay"]
 layout_mode = 0
@@ -179,35 +190,49 @@ offset_left = 40
 offset_top = 200
 offset_right = 680
 offset_bottom = 1050
+theme_override_styles/panel = SubResource("SBF_HowToPlay")
 
 [node name="VBox" type="VBoxContainer" parent="HowToPlayOverlay/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme_override_constants/separation = 12
+theme_override_constants/separation = 16
 
 [node name="Title" type="Label" parent="HowToPlayOverlay/Panel/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "How to Play"
 horizontal_alignment = 1
+vertical_alignment = 1
 theme_override_font_sizes/font_size = 28
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 
-[node name="Instructions" type="Label" parent="HowToPlayOverlay/Panel/VBox"]
+[node name="Instructions" type="RichTextLabel" parent="HowToPlayOverlay/Panel/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Item icons fall from the top.\nDrag them into the matching bin at the bottom.\n\nFood (green) → Food bin\nMetal (gray) → Metal bin\nPlastic (blue) → Plastic bin\n\nCorrect sort = coins, wrong sort = mess\nMess fills up = round ends early\n\nComplete rounds, buy upgrades, build your empire!"
-vertical_alignment = 1
+bbcode_enabled = true
+text = "Trash items appear on the conveyor belt above.
+Drag them into the matching bin below:
+
+[color=#66BB6A]Food (green) → Food bin[/color]
+[color=#78909C]Metal (gray) → Metal bin[/color]
+[color=#42A5F5]Plastic (blue) → Plastic bin[/color]
+
+Correct sort = [color=#FFD700]+coins[/color]
+Wrong sort = [color=#FF5252]+mess[/color]
+Mess fills up = round ends early
+
+Complete rounds, buy upgrades,
+build your raccoon empire!"
 theme_override_font_sizes/font_size = 16
-autowrap_mode = 2
+scroll_active = false
 
 [node name="GotItButton" type="Button" parent="HowToPlayOverlay/Panel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-custom_minimum_size = Vector2i(200, 50)
+custom_minimum_size = Vector2i(200, 52)
 text = "Got it!"
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 24
