@@ -11,6 +11,9 @@ export/
 exports/*
 !exports/.gitkeep
 
+# Raw generated assets (curated copies live separately)
+art/generated/*/raw/
+
 # Credentials
 .env
 auth.json

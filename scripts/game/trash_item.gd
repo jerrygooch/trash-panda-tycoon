@@ -54,24 +54,32 @@ func _build_visual() -> void:
 	_border.mouse_filter = MOUSE_FILTER_IGNORE
 	add_child(_border)
 
-	# Main background
-	_bg = ColorRect.new()
-	_bg.color = icon_color
-	_bg.size = Vector2(60, 60)
-	_bg.position = Vector2(0, 0)
-	_bg.mouse_filter = MOUSE_FILTER_IGNORE
-	add_child(_bg)
-
-	# Icon character
-	_icon_label = Label.new()
-	_icon_label.text = _get_icon_character()
-	_icon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_icon_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_icon_label.size = Vector2(60, 60)
-	_icon_label.position = Vector2(0, 0)
-	_icon_label.add_theme_font_size_override("font_size", 30)
-	_icon_label.mouse_filter = MOUSE_FILTER_IGNORE
-	add_child(_icon_label)
+	# Try loading generated icon texture (fallback to emoji if missing)
+	var tex_path: String = "res://art/generated/batch013/curated/icon_" + item_id + ".png"
+	var tex: Texture2D = load(tex_path) if ResourceLoader.exists(tex_path) else null
+	if tex:
+		# Use texture
+		_bg.color = Color.WHITE
+		var tex_rect: TextureRect = TextureRect.new()
+		tex_rect.texture = tex
+		tex_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		tex_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tex_rect.size = Vector2(56, 56)
+		tex_rect.position = Vector2(2, 2)
+		tex_rect.mouse_filter = MOUSE_FILTER_IGNORE
+		add_child(tex_rect)
+	else:
+		# Fallback: emoji on colored background
+		_bg.color = icon_color
+		_icon_label = Label.new()
+		_icon_label.text = _get_icon_character()
+		_icon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_icon_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_icon_label.size = Vector2(60, 60)
+		_icon_label.position = Vector2(0, 0)
+		_icon_label.add_theme_font_size_override("font_size", 30)
+		_icon_label.mouse_filter = MOUSE_FILTER_IGNORE
+		add_child(_icon_label)
 
 
 func _get_icon_character() -> String:

@@ -9,7 +9,30 @@ signal game_started()
 func _ready() -> void:
 	_find_and_wire_buttons()
 	_update_daily_button()
+	_try_load_mascot()
 	print("[MainMenu] Ready — buttons wired")
+
+
+func _try_load_mascot() -> void:
+	var tex_path: String = "res://art/generated/batch013/curated/mascot_raccoon.png"
+	if ResourceLoader.exists(tex_path):
+		var tex: Texture2D = load(tex_path)
+		if tex:
+			var tr: TextureRect = TextureRect.new()
+			tr.texture = tex
+			tr.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+			tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			tr.custom_minimum_size = Vector2i(128, 128)
+			tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			# Hide emoji raccoon and insert texture before it
+			var icon: Label = %RaccoonIcon
+			if icon:
+				icon.hide()
+				var parent = icon.get_parent()
+				var idx = icon.get_index()
+				parent.add_child(tr)
+				parent.move_child(tr, idx)
+			print("[MainMenu] Mascot texture loaded")
 
 
 func _find_and_wire_buttons() -> void:
