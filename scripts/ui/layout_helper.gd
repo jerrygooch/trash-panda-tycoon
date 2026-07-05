@@ -5,9 +5,9 @@ extends Node
 # actual notch/status-bar/nav-bar measurements from that device.
 
 # --- Safe margins (pixels at 720x1280 logical) ---
-const SAFE_TOP: int = 40      # status bar + small breathing room
-const SAFE_BOTTOM: int = 40   # nav bar + small breathing room
-const SAFE_SIDE: int = 16     # left/right edge margin
+const SAFE_TOP: int = 48      # status bar + extra breathing room for notch
+const SAFE_BOTTOM: int = 56   # nav bar + extra breathing room for gesture hints
+const SAFE_SIDE: int = 20     # left/right edge margin
 
 # --- Minimum touch target (40px per Material Design guideline) ---
 const MIN_TOUCH: int = 44
